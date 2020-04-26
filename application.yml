@@ -33,9 +33,3 @@ proxy:
     container-cmd: ["R", "-e", "shinyproxy::run_01_hello()"]
     container-image: openanalytics/shinyproxy-demo
     access-groups: [developer, users]
-  - id: flasapp
-    display-name: Demo Flask App
-    description: Adding flask app to shinyproxy
-    container-cmd: ["python", "app.py"]
-    container-image: cfgo/flask
-    access-groups: [developer, users]
