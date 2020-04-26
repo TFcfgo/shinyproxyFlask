@@ -1,0 +1,41 @@
+proxy:
+  title: CFgO Flask App
+  favicon-path: favicon.ico
+  landing-page: /
+  heartbeat-rate: 10000
+  heartbeat-timeout: 10800000
+  port: 8080
+  authentication: ldap
+  admin-groups: developer
+    users:
+  - name: jack
+    password: password
+    groups: developer
+  - name: jeff
+    password: password
+    groups: users
+  # Example: 'ldap' authentication configuration
+  ldap:
+    url: ldap://ldap.forumsys.com:389/dc=example,dc=com
+    user-dn-pattern: uid={0}
+    group-search-base:
+    group-search-filter: (uniqueMember={0})
+    manager-dn: cn=read-only-admin,dc=example,dc=com
+    manager-password: password
+  docker:
+      internal-networking: true
+  support:
+      mail-to-address: thomas.fuchs@cfgo.de
+  specs:
+  - id: 01_hello
+    display-name: Hello Application
+    description: Application which demonstrates the basics of a Shiny app
+    container-cmd: ["R", "-e", "shinyproxy::run_01_hello()"]
+    container-image: openanalytics/shinyproxy-demo
+    access-groups: [developer, users]
+  - id: flasapp
+    display-name: Demo Flask App
+    description: Adding flask app to shinyproxy
+    container-cmd: ["python", "app.py"]
+    container-image: cfgo/flask
+    access-groups: [developer, users]
